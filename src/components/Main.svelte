@@ -1,0 +1,488 @@
+  <!-- <script>
+    import { onMount } from 'svelte';
+    import * as d3 from 'd3';
+  
+    let launchData = []; 
+    let tooltipData = null; 
+    let showTooltipFlag = false; 
+    let tooltipPosition = { x: 0, y: 0 }; 
+  
+    async function fetchLaunchData() {
+      const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
+      const data = await response.json();
+      launchData = data.results; 
+    }
+  
+    onMount(async () => {
+      await fetchLaunchData();
+  
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+  
+      const projection1 = d3.geoEquirectangular()
+        .center([0, 0])
+        .translate([width / 2, height / 2])
+        .scale(512 / (2 * Math.PI) * (width / 512));
+  
+      const svg = d3.select("#map")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+  
+      const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
+  
+      svg.append("g")
+        .selectAll("path")
+        .data(data.features)
+        .enter()
+        .append("path")
+        .attr("fill", "grey")
+        .attr("d", d3.geoPath().projection(projection1))
+        .style("stroke", "#ffff");
+  
+     
+      svg.selectAll("circle")
+        .data(launchData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => projection1([d.pad.longitude, d.pad.latitude])[0])
+        .attr("cy", d => projection1([d.pad.longitude, d.pad.latitude])[1])
+        .attr("r", 5)
+        .attr("fill", "red")
+        .on("mousemove", (event, d) => showTooltip(event, d)) 
+        .on("mouseout", hideTooltip);
+    });
+  
+    function showTooltip(event, d) {
+      tooltipData = d;
+      showTooltipFlag = true; 
+      tooltipPosition = { x: event.pageX + 10, y: event.pageY + 10 }; //om de popup zichtbaar in beeld te houden
+    }
+  
+    function hideTooltip() {
+      showTooltipFlag = false; //hover ik niet over een stip wordt de Tooltip niet getoond
+    }
+  </script>
+  
+  <style>
+    .tooltip {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.706);
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 4px;
+      pointer-events: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+  
+    .title-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 10vh;
+      background-color: #1a1a2e;
+      z-index: 1;
+    }
+  
+    .title {
+      font-size: 2rem;
+      padding: .5em;
+      color: white;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+    }
+  
+   
+     :global(html, body) {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+  
+    #map {
+      width: 100vw; 
+      height: 100vh; 
+      padding-top: 3em;
+      overflow: hidden;
+      background-color: #1a1a2e;
+    }
+  </style>
+  
+  <main>
+    <div class="title-container">
+      <div class="title" id="title">Rocket Launch Map</div>
+    </div>
+  
+    <div id="map"></div>
+                                            
+    {#if showTooltipFlag && tooltipData} //Een boolean variabele die bepaalt of de tooltip moet worden weergegeven.
+        <div
+        class="tooltip"
+        style="top: {tooltipPosition.y}px; left: {tooltipPosition.x}px;"
+        >
+        <h2>{tooltipData.name}</h2>
+        <p>Status: {tooltipData.status.name}</p>
+        <p>Rocket: {tooltipData.rocket.configuration.full_name}</p>
+        <p>Agency: {tooltipData.launch_service_provider.name}</p>
+        <p>Location: {tooltipData.pad.location.name}</p>
+        <img src="{tooltipData.image.thumbnail_url}" alt="{tooltipData.name}" width="100">
+      </div>
+    {/if}
+   </main> -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script>
+    import { onMount } from 'svelte';
+    import * as d3 from 'd3';
+  
+    let launchData = []; 
+    let tooltipData = null; 
+    let showTooltipFlag = false; 
+    let tooltipPosition = { x: 0, y: 0 }; 
+    let adjustedTooltipPosition = { x: 0, y: 0 };
+    let formattedLaunchDate = '';
+
+    const statusColors = {
+    success: 'green',
+    failure: 'red',
+    upcoming: 'blue',
+    determined: 'turquoise',
+    };
+
+    async function fetchLaunchData() {
+      const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
+      const data = await response.json();
+      launchData = data.results; 
+    }
+
+
+ 
+
+    // async function fetchLaunchData() {
+    // let url = 'https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated&page_size=40'; 
+    // let pageCount = 0; 
+
+    // while (url && pageCount < 4) { //vraag je af waarom 4? Omdat de API mij niet meer toe laat op te halen.
+    // const response = await fetch(url);
+    // const data = await response.json();
+    // launchData = launchData.concat(data.results); 
+
+    // url = data.next; 
+    // pageCount += 1; 
+    //  }
+    // }
+
+    
+
+
+    onMount(async () => {
+      await fetchLaunchData();
+  
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+  
+      const projection1 = d3.geoEquirectangular()
+        .center([0, 0])
+        .translate([width / 2, height / 2])
+        .scale(512 / (2 * Math.PI) * (width / 512));
+  
+      const svg = d3.select("#map")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+  
+      const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
+  
+      svg.append("g")
+        .selectAll("path")
+        .data(data.features)
+        .enter()
+        .append("path")
+        .attr("fill", "grey")
+        .attr("d", d3.geoPath().projection(projection1))
+        .style("stroke", "#ffff");
+
+    svg
+      .selectAll('circle')
+      .data(launchData)
+      .enter()
+      .append('circle')
+      .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
+      .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
+      .attr('r', 8)
+      .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'turquoise') // standaard kleur geef ik aan determined
+      .on('mousemove', (event, d) => showTooltip(event, d))
+      .on('mouseout', hideTooltip);
+    });
+  
+    function showTooltip(event, d) {
+      tooltipData = d;
+      showTooltipFlag = true; 
+      tooltipPosition = { x: event.pageX + 10, y: event.pageY + 10 }; //om de popup zichtbaar in beeld te houden
+    }
+  
+    function hideTooltip() {
+      showTooltipFlag = false; //hover ik niet over een stip wordt de Tooltip niet getoond
+    }
+
+    function adjustTooltipPosition(x, y, tooltipWidth, tooltipHeight) {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+  
+    // if (x + tooltipWidth > windowWidth) {
+    // x = windowWidth - tooltipWidth - 10; 
+    //  }
+    //  if (x < 0) {
+    //  x = 10; 
+    // }
+    // console.log(windowHeight+y)
+    // if (y + tooltipHeight > windowHeight) {
+    //     console.log("tooltipOnleesbaar")
+    // // y = windowHeight - tooltipHeight - 10; 
+    // // y = - tooltipHeight
+    //  }
+    //  if (y < 0) {
+    // y = 10; 
+    // }
+    //  return { x, y };
+    // }
+
+    // $: if (showTooltipFlag && tooltipData) {
+    //  const tooltipWidth = 300; 
+    //  const tooltipHeight = 100;
+    //  adjustedTooltipPosition = adjustTooltipPosition(
+    //  tooltipPosition.x,
+    //  tooltipPosition.y,
+    //  tooltipWidth,
+    //  tooltipHeight
+    // );
+
+
+    if (x + tooltipWidth > windowWidth) {
+    x = windowWidth - tooltipWidth - 10; 
+  }
+  if (x < 0) {
+    x = 10; 
+  }
+
+  if (y + tooltipHeight > windowHeight) {
+    y = windowHeight - tooltipHeight - 10; 
+  }
+  if (y < 0) {
+    y = 10; 
+  }
+
+  return { x, y };
+}
+
+$: if (showTooltipFlag && tooltipData) {
+  const tooltipElement = document.querySelector(".tooltip"); // Zoek de weergegeven tooltip op de pagina, zodat we de grootte en positie ervan kunnen achterhalen
+    let tooltipRect;
+    if (tooltipElement) {
+      tooltipRect = tooltipElement.getBoundingClientRect();
+    } else {
+      tooltipRect = { width: 300, height: 100 };     
+    }
+
+    // $: in Svelte duidt reactieve aan, deze code in dit blok wordt dus automatisch 
+    // opnieuw uitgevoerd wanneer de reactieve variabelen (in dit geval showTooltipFlag of tooltipData) veranderen.
+
+    // getBoundingClientRect
+    // Geeft een object met informatie over de afmetingen van het element (tooltip) en de positie ten opzichte van het venster. 
+    // Dit berekend de grootte van de tooltip, zelfs als de inhoud erin verandert (bijvoorbeeld langere tekst).
+
+    // Als tooltipElement bestaat (de tooltip wordt op de pagina weergegeven), 
+    // ga dan verder met het berekenen van de grootte ervan met behulp van getBoundingClientRect().
+
+    // Als tooltipElement null of ongedefinieerd is, zou het aanroepen van getBoundingClientRect() een fout geven.
+    // Daaro gebruik ik "else" als een terugval optie. (zou zonder nog steeds werken maar verkomt gewoon een error)
+
+
+    const tooltipWidth = tooltipRect.width;
+    const tooltipHeight = tooltipRect.height;
+
+    adjustedTooltipPosition = adjustTooltipPosition(
+    tooltipPosition.x,
+    tooltipPosition.y,
+    tooltipWidth,
+    tooltipHeight
+  );
+
+    const launchDate = new Date(tooltipData.net);
+    formattedLaunchDate = launchDate.toLocaleString('en-US', {  //Hier zou ook makkelijk nl-NL kunnen om de datum en tijd in het Nederlands te weergeven
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h24', //geeft anders tijd in AM/PM aan
+    timeZoneName: 'short',
+  });
+}
+</script>
+  
+
+<style>
+.tooltip {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.706);
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px; 
+  word-wrap: break-word;
+}
+
+  
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 10vh;
+  /* background-color: #1a1a2e; */
+  z-index: 1;
+}
+  
+h1 {
+  font-size: 2rem;
+  padding: .5em;
+  color: white;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+}
+
+main {
+  font-family: 'Orbitron', sans-serif;
+}
+
+:global(html, body) {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+  
+#map {
+  width: 100vw; 
+  height: 100vh; 
+  padding-top: 3em;
+  overflow: hidden;
+  background-color: #1a1a2e;
+}
+
+ul {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 1px;
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+li {
+    display: flex;
+    align-items: center;
+    margin: 0.8em;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+</style>
+  
+
+<main>
+    <div class="title-container">
+      <h1 id="title">Rocket Launch Map</h1>
+    </div>
+
+    <div id="map"></div>
+
+    <ul>
+        <li>
+            <div class="legend-color" style="background-color: green;"></div>
+            Success
+        </li>
+
+        <li>
+            <div class="legend-color" style="background-color: red;"></div>
+            Failure
+        </li>
+
+        <li>
+            <div class="legend-color" style="background-color: blue;"></div>
+            Upcoming
+        </li>
+
+        <!-- <li>
+            <div class="legend-color" style="background-color: orange;"></div>
+            Confirmed
+        </li> -->
+
+        <li>
+            <div class="legend-color" style="background-color: turquoise;"></div>
+            Determined
+        </li>
+    </ul>
+
+                            
+    {#if showTooltipFlag && tooltipData}f
+    <div
+      class="tooltip"
+      style="top: {adjustedTooltipPosition.y}px; left: {adjustedTooltipPosition.x}px;" 
+    >
+      <h2>{tooltipData.name}</h2>
+      <p>Status: {tooltipData.status.name}</p>
+      <p>Rocket: {tooltipData.rocket.configuration.full_name}</p>
+      <p>Agency: {tooltipData.launch_service_provider.name}</p>
+      <p>Location: {tooltipData.pad.location.name}</p>
+      <p>Launch Date: {formattedLaunchDate}</p>
+      <img src="{tooltipData.image.thumbnail_url}" alt="{tooltipData.name}" width="150">
+    </div>
+    {/if}
+</main> 
+
+<!--De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition -->
+
+
+
