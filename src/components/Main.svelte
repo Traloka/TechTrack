@@ -81,6 +81,8 @@
       .on('mousemove', (event, d) => showTooltip(event, d))
       .on('mouseout', hideTooltip);
     });
+
+    console.log(launchData.map(d => d.status.abbrev));
   
     function showTooltip(event, d) {
       tooltipData = d;
