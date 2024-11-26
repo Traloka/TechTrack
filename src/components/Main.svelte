@@ -12,8 +12,8 @@
     const statusColors = {
     success: 'green',
     failure: 'red',
-    upcoming: 'blue',
-    toBeDetermined: 'turquoise',
+    // upcoming: 'blue',
+    Determined: 'turquoise',
     };
 
     async function fetchLaunchData() {
@@ -95,35 +95,6 @@
     function adjustTooltipPosition(x, y, tooltipWidth, tooltipHeight) {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-
-  
-    // if (x + tooltipWidth > windowWidth) {
-    // x = windowWidth - tooltipWidth - 10; 
-    //  }
-    //  if (x < 0) {
-    //  x = 10; 
-    // }
-    // console.log(windowHeight+y)
-    // if (y + tooltipHeight > windowHeight) {
-    //     console.log("tooltipOnleesbaar")
-    // // y = windowHeight - tooltipHeight - 10; 
-    // // y = - tooltipHeight
-    //  }
-    //  if (y < 0) {
-    // y = 10; 
-    // }
-    //  return { x, y };
-    // }
-
-    // $: if (showTooltipFlag && tooltipData) {
-    //  const tooltipWidth = 300; 
-    //  const tooltipHeight = 100;
-    //  adjustedTooltipPosition = adjustTooltipPosition(
-    //  tooltipPosition.x,
-    //  tooltipPosition.y,
-    //  tooltipWidth,
-    //  tooltipHeight
-    // );
 
 
     if (x + tooltipWidth > windowWidth) {
@@ -283,7 +254,7 @@ li {
     <ul>
         <li>
             <div class="legend-color" style="background-color: green;"></div>
-            Success
+            Ready for Launch
         </li>
 
         <li>
@@ -291,10 +262,10 @@ li {
             Failure
         </li>
 
-        <li>
+        <!-- <li>
             <div class="legend-color" style="background-color: blue;"></div>
             Upcoming
-        </li>
+        </li> -->
 
         <!-- <li>
             <div class="legend-color" style="background-color: orange;"></div>
