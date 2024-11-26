@@ -13,7 +13,7 @@
     success: 'green',
     failure: 'red',
     upcoming: 'blue',
-    'in progress': 'turquoise',
+    determined: 'turquoise',
     };
 
     async function fetchLaunchData() {
