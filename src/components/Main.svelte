@@ -12,8 +12,8 @@
     const statusColors = {
     success: 'green',
     failure: 'red',
-    // upcoming: 'blue',
-    Determined: 'turquoise',
+    upcoming: 'blue',
+    'in progress': 'turquoise',
     };
 
     async function fetchLaunchData() {
@@ -262,15 +262,15 @@ li {
             Failure
         </li>
 
-        <!-- <li>
+        <li>
             <div class="legend-color" style="background-color: blue;"></div>
             Upcoming
-        </li> -->
+        </li>
 
-        <!-- <li>
+        <li>
             <div class="legend-color" style="background-color: orange;"></div>
             Confirmed
-        </li> -->
+        </li>
 
         <li>
             <div class="legend-color" style="background-color: turquoise;"></div>
