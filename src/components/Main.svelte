@@ -20,6 +20,9 @@
       const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
       const data = await response.json();
       launchData = data.results; 
+      console.log(data); // structuur van de data
+      launchData = data.results;
+      console.log(launchData); // verifiëren van data
     }
 
 
@@ -125,7 +128,7 @@ $: if (showTooltipFlag && tooltipData) {
       tooltipRect = { width: 300, height: 100 };     
     }
 
-    // $: in Svelte duidt reactieve aan, deze code in dit blok wordt dus automatisch 
+    // $: in Svelte duidt reactiev aan, deze code in dit blok wordt dus automatisch 
     // opnieuw uitgevoerd wanneer de reactieve variabelen (in dit geval showTooltipFlag of tooltipData) veranderen.
 
     // getBoundingClientRect
