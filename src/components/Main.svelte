@@ -77,7 +77,7 @@
       .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
       .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
       .attr('r', 8)
-      .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'turquoise') // standaard kleur geef ik aan determined
+      .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') // standaard kleur geef ik aan determined
       .on('mousemove', (event, d) => showTooltip(event, d))
       .on('mouseout', hideTooltip);
     });
@@ -254,7 +254,7 @@ li {
     <ul>
         <li>
             <div class="legend-color" style="background-color: green;"></div>
-            Ready for Launch
+            Succes
         </li>
 
         <li>
