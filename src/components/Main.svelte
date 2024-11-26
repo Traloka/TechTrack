@@ -20,9 +20,7 @@
       const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
       const data = await response.json();
       launchData = data.results; 
-      console.log(data); // structuur van de data
-      launchData = data.results;
-      console.log(launchData); // verifiëren van data
+      console.log(launchData); // voor testen
     }
 
 
@@ -42,7 +40,18 @@
     //  }
     // }
 
+
+
+
+
+  const validLaunches = launchData.filter(
+  d => d.pad && d.status && d.pad.longitude !== null && d.pad.latitude !== null
+  );
+  console.log(validLaunches); // Log valide lanceringen
+
     
+
+
 
 
     onMount(async () => {
@@ -72,21 +81,48 @@
         .attr("d", d3.geoPath().projection(projection1))
         .style("stroke", "#ffff");
 
-    svg
-      .selectAll('circle')
-      .data(launchData)
-      .enter()
-      .append('circle')
-      .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
-      .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
-      .attr('r', 8)
-      .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') // standaard kleur geef ik aan determined
-      .on('mousemove', (event, d) => showTooltip(event, d))
-      .on('mouseout', hideTooltip);
-    });
+    // svg
+    //   .selectAll('circle')
+    //   .data(launchData)
+    //   .enter()
+    //   .append('circle')
+    //   .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
+    //   .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
+    //   .attr('r', 8)
+    //   .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') // standaard kleur geef ik aan determined
+    //   .on('mousemove', (event, d) => showTooltip(event, d))
+    //   .on('mouseout', hideTooltip);
+    // });
 
-    console.log(launchData.map(d => d.status.abbrev));
-  
+
+
+
+
+  svg
+  .selectAll('circle')
+  .data(validLaunches)
+  .enter()
+  .append('circle')
+  .attr('cx', d => {
+    const coords = projection1([d.pad.longitude, d.pad.latitude]);
+    console.log(`Coordinates: ${coords}`);
+    return coords ? coords[0] : -9999; // Skip invalid coordinates
+  })
+  .attr('cy', d => {
+    const coords = projection1([d.pad.longitude, d.pad.latitude]);
+    return coords ? coords[1] : -9999; // Skip invalid coordinates
+  })
+  .attr('r', 8)
+  .attr('fill', d => {
+    console.log(`Status Abbreviation: ${d.status.abbrev}`);
+    return statusColors[d.status.abbrev.toLowerCase()] || 'white';
+  });
+
+
+
+
+
+
     function showTooltip(event, d) {
       tooltipData = d;
       showTooltipFlag = true; 
