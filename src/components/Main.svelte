@@ -314,7 +314,7 @@ De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de ber
   success: 'green',
   failure: 'red',
   upcoming: 'blue',
-  progress: 'turquoise',
+  // progress: 'turquoise',
   };
 
   async function fetchLaunchData() {
@@ -396,36 +396,6 @@ De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de ber
   function adjustTooltipPosition(x, y, tooltipWidth, tooltipHeight) {
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
-
-
-  // if (x + tooltipWidth > windowWidth) {
-  // x = windowWidth - tooltipWidth - 10; 
-  //  }
-  //  if (x < 0) {
-  //  x = 10; 
-  // }
-  // console.log(windowHeight+y)
-  // if (y + tooltipHeight > windowHeight) {
-  //     console.log("tooltipOnleesbaar")
-  // // y = windowHeight - tooltipHeight - 10; 
-  // // y = - tooltipHeight
-  //  }
-  //  if (y < 0) {
-  // y = 10; 
-  // }
-  //  return { x, y };
-  // }
-
-  // $: if (showTooltipFlag && tooltipData) {
-  //  const tooltipWidth = 300; 
-  //  const tooltipHeight = 100;
-  //  adjustedTooltipPosition = adjustTooltipPosition(
-  //  tooltipPosition.x,
-  //  tooltipPosition.y,
-  //  tooltipWidth,
-  //  tooltipHeight
-  // );
-
 
   if (x + tooltipWidth > windowWidth) {
   x = windowWidth - tooltipWidth - 10; 
