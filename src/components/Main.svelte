@@ -314,7 +314,7 @@ De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de ber
   success: 'green',
   failure: 'red',
   upcoming: 'blue',
-  determined: 'turquoise',
+  progress: 'turquoise',
   };
 
   async function fetchLaunchData() {
@@ -378,7 +378,7 @@ De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de ber
     .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
     .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
     .attr('r', 8)
-    .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'turquoise') // standaard kleur geef ik aan determined
+    .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') // Default to white for unknown status
     .on('mousemove', (event, d) => showTooltip(event, d))
     .on('mouseout', hideTooltip);
   });
