@@ -9,12 +9,12 @@
     let adjustedTooltipPosition = { x: 0, y: 0 };
     let formattedLaunchDate = '';
 
-    // const statusColors = {
-    // success: 'green',
-    // failure: 'red',
-    // upcoming: 'blue',
-    // toBeDetermined: 'turquoise',
-    // };
+    const statusColors = {
+    success: 'green',
+    failure: 'red',
+    upcoming: 'blue',
+    toBeDetermined: 'turquoise',
+    };
 
     async function fetchLaunchData() {
       const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
@@ -59,13 +59,6 @@
         .attr("height", height);
   
       const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
-      
-      const statusColors = {
-      success: 'green',
-      failure: 'red',
-      upcoming: 'blue',
-      toBeDetermined: 'turquoise',
-      };
 
       svg.append("g")
         .selectAll("path")
@@ -332,6 +325,3 @@ li {
 </main> 
 
 <!--De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition -->
-
-
-
