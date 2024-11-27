@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
 
@@ -9,12 +9,19 @@
   let adjustedTooltipPosition = { x: 0, y: 0 };
   let formattedLaunchDate = '';
 
+  // const statusColors = {
+  // success: 'green',
+  // failure: 'red',
+  // upcoming: 'blue',
+  // // progress: 'turquoise',
+  // };
+
   const statusColors = {
-  success: 'green',
-  failure: 'red',
-  upcoming: 'blue',
-  // progress: 'turquoise',
-  };
+  TBC: 'orange', // To Be Confirmed
+  Go: 'green',   // Go for launch
+  TBD: 'red',    // To Be Determined
+};
+
 
   async function fetchLaunchData() {
     const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
@@ -294,7 +301,7 @@ li {
   {/if}
 </main> 
 
-De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition -->
+<!-- De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition -->
 
 
 
@@ -305,7 +312,7 @@ De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de ber
 
 
 
-<script>
+<!-- <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
 
@@ -611,7 +618,7 @@ li {
           <div class="legend-color" style="background-color: turquoise;"></div>
           Determined
       </li> -->
-  </ul>
+  <!-- </ul>
 
                           
   {#if showTooltipFlag && tooltipData}f
@@ -630,4 +637,4 @@ li {
   {/if}
 </main> 
 
-<!--De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition -->
+De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition --> 
