@@ -17,9 +17,9 @@
   // };
 
   const statusColors = {
-  TBC: 'orange', // To Be Confirmed
-  Go: 'green',   // Go for launch
-  TBD: 'red',    // To Be Determined
+  tbc: 'orange', // To Be Confirmed
+  go: 'green',   // Go for launch
+  tbd: 'red',    // To Be Determined
 };
 
 
@@ -84,7 +84,7 @@
     .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
     .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
     .attr('r', 8)
-    .attr('fill', (d) => statusColors[d.status.abbrev] || 'white') // Default to white for unknown status
+    .attr('fill', (d) => statusColors[d.status.abbrev]) // Default to white for unknown status
     .on('mousemove', (event, d) => showTooltip(event, d))
     .on('mouseout', hideTooltip);
   });
@@ -263,15 +263,15 @@ li {
           Success
       </li>
 
-      <li>
+      <!-- <li>
           <div class="legend-color" style="background-color: red;"></div>
           Failure
-      </li>
+      </li> -->
 
-      <li>
+      <!-- <li>
           <div class="legend-color" style="background-color: blue;"></div>
           Upcoming
-      </li>
+      </li> -->
 
       <li>
           <div class="legend-color" style="background-color: orange;"></div>
