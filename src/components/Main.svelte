@@ -9,18 +9,8 @@
   let adjustedTooltipPosition = { x: 0, y: 0 };
   let formattedLaunchDate = '';
 
-  // const statusColors = {
-  // success: 'green',
-  // failure: 'red',
-  // upcoming: 'blue',
-  // // progress: 'turquoise',
-  // }; 
-
-  const statusColors = {
-  "tbc": 'orange', // To Be Confirmed
-  "go": 'green',   // Go for launch
-  "tbd": 'turquoise',    // To Be Determined
-};
+//Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
+// Waarom dit nodig is omdat er veel data van de API wordt opgehaalt dit kost tijd. Je zegt letterlijk wacht met het bouwen.
 
 
   async function fetchLaunchData() {
@@ -29,7 +19,7 @@
     launchData = data.results; 
   }
 
-
+// Voor het ophalen van de maximale hoeveelheid data van de API 
 
 
   // async function fetchLaunchData() {
@@ -47,87 +37,93 @@
   // }
 
   
+// Hier wordt de de kaart, 
 
+onMount(async () => {
+  await fetchLaunchData();
 
-  onMount(async () => {
-    await fetchLaunchData();
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    const projection1 = d3.geoEquirectangular()
+  const projectionMap = d3.geoEquirectangular()
       .center([0, 0])
       .translate([width / 2, height / 2])
       .scale(512 / (2 * Math.PI) * (width / 512));
 
-    const svg = d3.select("#map")
+  const svg = d3.select("#map")
       .append("svg")
       .attr("width", width)
       .attr("height", height);
 
-    const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
+  const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
 
-    svg.append("g")
-      .selectAll("path")
-      .data(data.features)
-      .enter()
-      .append("path")
-      .attr("fill", "grey")
-      .attr("d", d3.geoPath().projection(projection1))
-      .style("stroke", "#ffff");
-
-  svg
-    .selectAll('circle')
-    .data(launchData)
+  svg.append("g")
+    .selectAll("path")
+    .data(data.features)
     .enter()
-    .append('circle')
-    .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
-    .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
-    .attr('r', 8)
-    .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
-    .on('mousemove', (event, d) => showTooltip(event, d))
-    .on('mouseout', hideTooltip);
-  });
+    .append("path")
+    .attr("fill", "grey")
+    .attr("d", d3.geoPath().projection(projection))
+    .style("stroke", "#ffff");
 
-  function showTooltip(event, d) {
-    tooltipData = d;
-    showTooltipFlag = true; 
-    tooltipPosition = { x: event.pageX + 10, y: event.pageY + 10 }; //om de popup zichtbaar in beeld te houden
-  }
+svg
+  .selectAll('circle')
+  .data(launchData)
+  .enter()
+  .append('circle')
+  .attr('cx', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
+  .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
+  .attr('r', 8)
+  .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
+  .on('mousemove', (event, d) => showTooltip(event, d))
+  .on('mouseout', hideTooltip);
+});
 
-  function hideTooltip() {
-    showTooltipFlag = false; //hover ik niet over een stip wordt de Tooltip niet getoond
-  }
+const statusColors = {
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'turquoise',    // To Be Determined
+};
 
-  function adjustTooltipPosition(x, y, tooltipWidth, tooltipHeight) {
-  const windowWidth = window.innerWidth;
-  const windowHeight = window.innerHeight;
+function showTooltip(event, d) {
+  tooltipData = d;
+  showTooltipFlag = true; 
+  tooltipPosition = { x: event.pageX + 10, y: event.pageY + 10 }; //om de popup zichtbaar in beeld te houden
+}
+
+function hideTooltip() {
+  showTooltipFlag = false; //hover ik niet over een stip wordt de Tooltip niet getoond
+}
+
+function adjustTooltipPosition(x, y, tooltipWidth, tooltipHeight) {
+const windowWidth = window.innerWidth;
+const windowHeight = window.innerHeight;
 
   if (x + tooltipWidth > windowWidth) {
   x = windowWidth - tooltipWidth - 10; 
-}
-if (x < 0) {
+  }
+  if (x < 0) {
   x = 10; 
-}
+  }
 
-if (y + tooltipHeight > windowHeight) {
+  if (y + tooltipHeight > windowHeight) {
   y = windowHeight - tooltipHeight - 10; 
-}
-if (y < 0) {
+  }
+  if (y < 0) {
   y = 10; 
-}
+  }
 
-return { x, y };
+  return { x, y };
 }
 
 $: if (showTooltipFlag && tooltipData) {
 const tooltipElement = document.querySelector(".tooltip"); // Zoek de weergegeven tooltip op de pagina, zodat we de grootte en positie ervan kunnen achterhalen
-  let tooltipRect;
-  if (tooltipElement) {
-    tooltipRect = tooltipElement.getBoundingClientRect();
-  } else {
-    tooltipRect = { width: 300, height: 100 };     
-  }
+let tooltipRect;
+if (tooltipElement) {
+  tooltipRect = tooltipElement.getBoundingClientRect();
+} else {
+  tooltipRect = { width: 300, height: 100 };     
+}
 
   // $: in Svelte duidt reactieve aan, deze code in dit blok wordt dus automatisch 
   // opnieuw uitgevoerd wanneer de reactieve variabelen (in dit geval showTooltipFlag of tooltipData) veranderen.
@@ -143,29 +139,28 @@ const tooltipElement = document.querySelector(".tooltip"); // Zoek de weergegeve
   // Daaro gebruik ik "else" als een terugval optie. (zou zonder nog steeds werken maar verkomt gewoon een error)
 
 
-  const tooltipWidth = tooltipRect.width;
-  const tooltipHeight = tooltipRect.height;
+const tooltipWidth = tooltipRect.width;
+const tooltipHeight = tooltipRect.height;
 
-  adjustedTooltipPosition = adjustTooltipPosition(
-  tooltipPosition.x,
-  tooltipPosition.y,
-  tooltipWidth,
-  tooltipHeight
+adjustedTooltipPosition = adjustTooltipPosition(
+tooltipPosition.x,
+tooltipPosition.y,
+tooltipWidth,
+tooltipHeight
 );
 
-  const launchDate = new Date(tooltipData.net);
-  formattedLaunchDate = launchDate.toLocaleString('en-US', {  //Hier zou ook makkelijk nl-NL kunnen om de datum en tijd in het Nederlands te weergeven
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  hourCycle: 'h24', //geeft anders tijd in AM/PM aan
-  timeZoneName: 'short',
-});
-}
-</script>
+const launchDate = new Date(tooltipData.net);
+formattedLaunchDate = launchDate.toLocaleString('en-US', {  //Hier zou ook makkelijk nl-NL kunnen om de datum en tijd in het Nederlands te weergeven
+weekday: 'long',
+year: 'numeric',
+month: 'long',
+day: 'numeric',
+hour: '2-digit',
+minute: '2-digit',
+hourCycle: 'h24', //geeft anders tijd in AM/PM aan
+timeZoneName: 'short',
+});}
+  </script>
 
 
 <style>
@@ -259,18 +254,8 @@ li {
   <ul>
       <li>
           <div class="legend-color" style="background-color: green;"></div>
-          Success
+          Ready for launch
       </li>
-
-      <!-- <li>
-          <div class="legend-color" style="background-color: red;"></div>
-          Failure
-      </li> -->
-
-      <!-- <li>
-          <div class="legend-color" style="background-color: blue;"></div>
-          Upcoming
-      </li> -->
 
       <li>
           <div class="legend-color" style="background-color: orange;"></div>
@@ -285,7 +270,7 @@ li {
 
                           
   {#if showTooltipFlag && tooltipData}
-  <div
+  <section
     class="tooltip"
     style="top: {adjustedTooltipPosition.y}px; left: {adjustedTooltipPosition.x}px;" 
   >
@@ -296,7 +281,7 @@ li {
     <p>Location: {tooltipData.pad.location.name}</p>
     <p>Launch Date: {formattedLaunchDate}</p>
     <img src="{tooltipData.image.thumbnail_url}" alt="{tooltipData.name}" width="150">
-  </div>
+  </section>
   {/if}
 </main> 
 
