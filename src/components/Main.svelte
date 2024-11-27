@@ -17,9 +17,9 @@
   // };
 
   const statusColors = {
-  tbc: 'orange', // To Be Confirmed
-  go: 'green',   // Go for launch
-  tbd: 'red',    // To Be Determined
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'red',    // To Be Determined
 };
 
 
