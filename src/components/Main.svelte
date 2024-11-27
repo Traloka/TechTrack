@@ -40,6 +40,7 @@
 // Hier wordt de lanceer data, defineren van geografische projectie, een SVG gemaakt voor de kaart en 
 // stippen voor lanceer locaties gemaakt.
 
+
 onMount(async () => {
   await fetchLaunchData();
 
@@ -64,7 +65,7 @@ onMount(async () => {
     .enter()
     .append("path")
     .attr("fill", "grey")
-    .attr("d", d3.geoPath().projectionMap(projectionMap))
+    .attr("d", d3.geoPath().projection(projectionMap))
     .style("stroke", "#ffff");
 
 svg
