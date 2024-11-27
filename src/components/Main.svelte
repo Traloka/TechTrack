@@ -14,12 +14,12 @@
   // failure: 'red',
   // upcoming: 'blue',
   // // progress: 'turquoise',
-  // };
+  // }; 
 
   const statusColors = {
   "tbc": 'orange', // To Be Confirmed
   "go": 'green',   // Go for launch
-  "tbd": 'red',    // To Be Determined
+  "tbd": 'turquoise',    // To Be Determined
 };
 
 
@@ -84,7 +84,7 @@
     .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
     .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
     .attr('r', 8)
-    .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) // Default to white for unknown status
+    .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
     .on('mousemove', (event, d) => showTooltip(event, d))
     .on('mouseout', hideTooltip);
   });
@@ -191,7 +191,6 @@ top: 0;
 left: 0;
 width: 100vw;
 height: 10vh;
-/* background-color: #1a1a2e; */
 z-index: 1;
 }
 
@@ -285,7 +284,7 @@ li {
   </ul>
 
                           
-  {#if showTooltipFlag && tooltipData}f
+  {#if showTooltipFlag && tooltipData}
   <div
     class="tooltip"
     style="top: {adjustedTooltipPosition.y}px; left: {adjustedTooltipPosition.x}px;" 
