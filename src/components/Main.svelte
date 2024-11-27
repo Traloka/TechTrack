@@ -84,7 +84,7 @@
     .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
     .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
     .attr('r', 8)
-    .attr('fill', (d) => statusColors[d.status.abbrev]) // Default to white for unknown status
+    .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) // Default to white for unknown status
     .on('mousemove', (event, d) => showTooltip(event, d))
     .on('mouseout', hideTooltip);
   });
