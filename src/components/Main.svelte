@@ -294,7 +294,7 @@ li {
   {/if}
 </main> 
 
-De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition --> -->
+De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition -->
 
 
 
@@ -410,7 +410,7 @@ De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de ber
   .attr('r', 8)
   .attr('fill', (d) => {
     console.log(d.status); // Debug to check the status
-    return statusColors[d.status.name] || 'white'; // Adjust based on observed data
+    return statusColors[d.status.name.toLowerCase()] || 'white'; // Adjust based on observed data
   })
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
