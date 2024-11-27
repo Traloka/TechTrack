@@ -10,7 +10,10 @@ Maakt de functie asynchroon, waardoor je 'await' erin kunt gebruiken voor taken 
 er veel data van de API wordt opgehaalt dit kost tijd. Dit werkt goed samen met 'await' die als het ware 'async' de tijd geeft.
 
 
-
+Waarom async/wachten gebruiken?
+Gemakkelijker te lezen: we gebruiken await om te pauzeren totdat elke asynchrone taak is voltooid.
+Meer synchroon in stijl: met async/await kunt u asynchrone code schrijven die op synchrone code lijkt.
+Foutafhandeling: Met async/await kunnen we try...catch-blokken gebruiken om fouten af ​​te handelen, waardoor het gemakkelijker wordt om fouten in asynchrone taken af ​​te handelen.
 
 
 

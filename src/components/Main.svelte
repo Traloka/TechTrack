@@ -37,7 +37,8 @@
   // }
 
   
-// Hier wordt de de kaart, 
+// Hier wordt de lanceer data, defineren van geografische projectie, een SVG gemaakt voor de kaart en 
+// stippen voor lanceer locaties gemaakt.
 
 onMount(async () => {
   await fetchLaunchData();
@@ -71,8 +72,8 @@ svg
   .data(launchData)
   .enter()
   .append('circle')
-  .attr('cx', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
-  .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
+  .attr('x', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
+  .attr('y', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
   .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
@@ -124,20 +125,6 @@ if (tooltipElement) {
 } else {
   tooltipRect = { width: 300, height: 100 };     
 }
-
-  // $: in Svelte duidt reactieve aan, deze code in dit blok wordt dus automatisch 
-  // opnieuw uitgevoerd wanneer de reactieve variabelen (in dit geval showTooltipFlag of tooltipData) veranderen.
-
-  // getBoundingClientRect
-  // Geeft een object met informatie over de afmetingen van het element (tooltip) en de positie ten opzichte van het venster. 
-  // Dit berekend de grootte van de tooltip, zelfs als de inhoud erin verandert (bijvoorbeeld langere tekst).
-
-  // Als tooltipElement bestaat (de tooltip wordt op de pagina weergegeven), 
-  // ga dan verder met het berekenen van de grootte ervan met behulp van getBoundingClientRect().
-
-  // Als tooltipElement null of ongedefinieerd is, zou het aanroepen van getBoundingClientRect() een fout geven.
-  // Daaro gebruik ik "else" als een terugval optie. (zou zonder nog steeds werken maar verkomt gewoon een error)
-
 
 const tooltipWidth = tooltipRect.width;
 const tooltipHeight = tooltipRect.height;
