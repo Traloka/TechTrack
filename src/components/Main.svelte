@@ -64,7 +64,7 @@ onMount(async () => {
     .enter()
     .append("path")
     .attr("fill", "grey")
-    .attr("d", d3.geoPath().projection(projectionMap))
+    .attr("d", d3.geoPath().projectionMap(projectionMap))
     .style("stroke", "#ffff");
 
 svg
