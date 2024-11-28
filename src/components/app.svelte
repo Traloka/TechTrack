@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import Map from '../Map.svelte';
   
     let tooltipData = null;
@@ -58,7 +58,30 @@
   
   <main>
     <Map onShowTooltip={showTooltip} onHideTooltip={hideTooltip} />
-  
+    
+    <div class="title-container">
+        <h1 id="title">Rocket Launch Map</h1>
+      </div>
+    
+      <div id="map"></div>
+    
+      <ul>
+          <li>
+              <div class="legend-color" style="background-color: green;"></div>
+              Ready for launch
+          </li>
+    
+          <li>
+              <div class="legend-color" style="background-color: orange;"></div>
+              Confirmed
+          </li>
+    
+          <li>
+              <div class="legend-color" style="background-color: red;"></div>
+              Determined
+          </li>
+      </ul>
+
     {#if showTooltipFlag && tooltipData}
     <section
       class="tooltip"
@@ -87,4 +110,4 @@
       max-width: 300px;
       word-wrap: break-word;
     }
-  </style>
+  </style> -->

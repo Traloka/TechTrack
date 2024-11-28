@@ -1,9 +1,9 @@
-<script>
+<!-- <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
   
-    export let onShowTooltip = () => {}; // Event handler passed from parent
-    export let onHideTooltip = () => {}; // Event handler passed from parent
+    export let onShowTooltip = () => {}; 
+    export let onHideTooltip = () => {}; 
   
     let launchData = [];
     const statusColors = {
@@ -57,8 +57,8 @@
         .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
         .attr('r', 8)
         .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()])
-        .on('mousemove', (event, d) => onShowTooltip(event, d)) // Call the passed handler
-        .on('mouseout', () => onHideTooltip()); // Call the passed handler
+        .on('mousemove', (event, d) => onShowTooltip(event, d)) 
+        .on('mouseout', () => onHideTooltip()); 
     });
   </script>
   
@@ -71,4 +71,4 @@
       background-color: #1a1a2e;
     }
   </style>
-  
+   -->
