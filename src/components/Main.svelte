@@ -12,11 +12,11 @@
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
 // Waarom dit nodig is omdat er veel data van de API wordt opgehaalt dit kost tijd. Je zegt letterlijk wacht met het bouwen.
 
-const statusColors = {
-  "tbc": 'orange', // To Be Confirmed
-  "go": 'green',   // Go for launch
-  "tbd": 'turquoise',    // To Be Determined
-};
+  // const statusColors = {
+  // "tbc": 'orange', // To Be Confirmed
+  // "go": 'green',   // Go for launch
+  // "tbd": 'turquoise',    // To Be Determined
+  // };
 
   async function fetchLaunchData() {
     const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
@@ -49,29 +49,35 @@ const statusColors = {
 onMount(async () => {
   await fetchLaunchData();
 
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+const width = window.innerWidth;
+const height = window.innerHeight;
 
-  const projection1 = d3.geoEquirectangular()
-      .center([0, 0])
-      .translate([width / 2, height / 2])
-      .scale(512 / (2 * Math.PI) * (width / 512));
+const projection1 = d3.geoEquirectangular()
+  .center([0, 0])
+  .translate([width / 2, height / 2])
+  .scale(512 / (2 * Math.PI) * (width / 512));
 
-  const svg = d3.select("#map")
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+const svg = d3.select("#map")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
 
-  const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
+const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
 
-  svg.append("g")
-    .selectAll("path")
-    .data(data.features)
-    .enter()
-    .append("path")
-    .attr("fill", "grey")
-    .attr("d", d3.geoPath().projection(projection1))
-    .style("stroke", "#ffff");
+svg.append("g")
+  .selectAll("path")
+  .data(data.features)
+  .enter()
+  .append("path")
+  .attr("fill", "grey")
+  .attr("d", d3.geoPath().projection(projection1))
+  .style("stroke", "#ffff");
+
+const statusColors = {
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'red',    // To Be Determined
+};
 
 svg
   .selectAll('circle')
@@ -250,7 +256,7 @@ li {
       </li>
 
       <li>
-          <div class="legend-color" style="background-color: turquoise;"></div>
+          <div class="legend-color" style="background-color: red;"></div>
           Determined
       </li>
   </ul>
