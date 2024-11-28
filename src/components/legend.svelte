@@ -1,9 +1,9 @@
-<!-- <script>
+<script>
     export let statusColors;
-  </script> -->
+  </script>
   
   <ul>
-    <li>
+    <!-- <li>
         <div class="legend-color" style="background-color: green;"></div>
         Ready for launch
     </li>
@@ -16,13 +16,13 @@
     <li>
         <div class="legend-color" style="background-color: red;"></div>
         Determined
-    </li>
-    <!-- {#each Object.entries(statusColors) as [status, color]}
+    </li> -->
+    {#each Object.entries(statusColors) as [status, color]}
       <li>
         <div class="legend-color" style="background-color: {color};"></div>
         {status.toUpperCase()}
       </li>
-    {/each} -->
+    {/each}
   </ul>
   
   <style>
