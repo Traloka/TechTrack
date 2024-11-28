@@ -41,51 +41,51 @@
 // Hier wordt de lanceer data, defineren van geografische projectie, een SVG gemaakt voor de kaart en 
 // stippen voor lanceer locaties gemaakt.
 
-const statusColors = {
-  "tbc": 'orange', // To Be Confirmed
-  "go": 'green',   // Go for launch
-  "tbd": 'red',    // To Be Determined
-};
-
 onMount(async () => {
   await fetchLaunchData();
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
-const projection1 = d3.geoEquirectangular()
-  .center([0, 0])
-  .translate([width / 2, height / 2])
-  .scale(512 / (2 * Math.PI) * (width / 512));
+  const projection1 = d3.geoEquirectangular()
+      .center([0, 0])
+      .translate([width / 2, height / 2])
+      .scale(512 / (2 * Math.PI) * (width / 512));
 
-const svg = d3.select("#map")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height);
+  const svg = d3.select("#map")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
 
-const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
+  const data = await d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/world.json");
 
-svg.append("g")
-  .selectAll("path")
-  .data(data.features)
-  .enter()
-  .append("path")
-  .attr("fill", "grey")
-  .attr("d", d3.geoPath().projection(projection1))
-  .style("stroke", "#ffff");
+  svg.append("g")
+    .selectAll("path")
+    .data(data.features)
+    .enter()
+    .append("path")
+    .attr("fill", "grey")
+    .attr("d", d3.geoPath().projection(projection1))
+    .style("stroke", "#ffff");
 
 svg
   .selectAll('circle')
   .data(launchData)
   .enter()
   .append('circle')
-  .attr('x', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
-  .attr('y', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
+  .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
+  .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
   .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
+
+const statusColors = {
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'red',    // To Be Determined
+};
 
 
 //Hier wordt de tooltip gemaakt, aangegeven wanneer wel wanneer niet te tonnen en welke informetie er getoond moet worden
