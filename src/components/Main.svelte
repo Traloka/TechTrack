@@ -9,7 +9,12 @@
   let adjustedTooltipPosition = { x: 0, y: 0 };
   let formattedLaunchDate = '';
 
-  
+  const statusColors = {
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'red',    // To Be Determined
+  };
+
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
 // Waarom dit nodig is omdat er veel data van de API wordt opgehaalt dit kost tijd. Je zegt letterlijk wacht met het bouwen.
 
@@ -80,12 +85,6 @@ svg
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
-
-const statusColors = {
-  "tbc": 'orange', // To Be Confirmed
-  "go": 'green',   // Go for launch
-  "tbd": 'red',    // To Be Determined
-};
 
 
 //Hier wordt de tooltip gemaakt, aangegeven wanneer wel wanneer niet te tonnen en welke informetie er getoond moet worden
