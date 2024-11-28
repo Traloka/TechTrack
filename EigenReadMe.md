@@ -66,20 +66,20 @@ const tooltipElement = document.querySelector(".tooltip");
   
 
 $: 
-in Svelte duidt reactieve aan, deze code in dit blok wordt dus automatisch opnieuw uitgevoerd wanneer de reactieve variabelen (in dit geval 
+duidt reactieve aan, deze code in dit blok wordt dus automatisch opnieuw uitgevoerd wanneer de reactieve variabelen (in dit geval 
 showTooltipFlag of tooltipData) veranderen.
 
 &&:
 Is als letterlijk en en in dit geval dus: if (showTooltipFlag en en tooltipData) waar zijn.
 
 tooltipElement.getBoundingClientRect():
-Retourneert een object met informatie over de afmetingen van het element en de positie ten opzichte van het venster. 
+Geeft informatie over de afmetingen van het element en de positie ten opzichte van de viewport. 
 Dit zorgt ervoor dat de grootte van de tooltip dynamisch en nauwkeurig wordt berekend, zelfs als de inhoud erin verandert 
 (bijvoorbeeld langere tekst).
 Gebruikte video: https://www.youtube.com/watch?v=MjDOZmfsKvs&ab_channel=AndreasWik 
 
 In het kort wat er gebeurt:
 De grootte (tooltipRect.width en tooltipRect.height) wordt doorgegeven aan de functie AdjustTooltipPosition.
-AdjustTooltipPosition zorgt ervoor dat de tooltip binnen het zichtbare venster blijft.
+AdjustTooltipPosition zorgt ervoor dat de tooltip binnen de viewport blijft.
 Elke keer dat showTooltipFlag of tooltipData verandert, wordt dit blok opnieuw uitgevoerd, waarbij de afmetingen en positie van de tooltip 
 dynamisch opnieuw worden berekend. Dat dan weer zorgt dat de tooltip altijd zichtbaar is.
