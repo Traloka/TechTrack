@@ -12,6 +12,11 @@
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
 // Waarom dit nodig is omdat er veel data van de API wordt opgehaalt dit kost tijd. Je zegt letterlijk wacht met het bouwen.
 
+const statusColors = {
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'turquoise',    // To Be Determined
+};
 
   async function fetchLaunchData() {
     const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
@@ -80,12 +85,6 @@ svg
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
-
-const statusColors = {
-  "tbc": 'orange', // To Be Confirmed
-  "go": 'green',   // Go for launch
-  "tbd": 'turquoise',    // To Be Determined
-};
 
 function showTooltip(event, d) {
   tooltipData = d;
