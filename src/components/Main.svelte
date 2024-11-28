@@ -41,6 +41,11 @@
 // Hier wordt de lanceer data, defineren van geografische projectie, een SVG gemaakt voor de kaart en 
 // stippen voor lanceer locaties gemaakt.
 
+const statusColors = {
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'red',    // To Be Determined
+};
 
 onMount(async () => {
   await fetchLaunchData();
@@ -68,12 +73,6 @@ svg.append("g")
   .attr("fill", "grey")
   .attr("d", d3.geoPath().projection(projection1))
   .style("stroke", "#ffff");
-
-const statusColors = {
-  "tbc": 'orange', // To Be Confirmed
-  "go": 'green',   // Go for launch
-  "tbd": 'red',    // To Be Determined
-};
 
 svg
   .selectAll('circle')
@@ -142,7 +141,7 @@ tooltipWidth,
 tooltipHeight
 );
 
-const launchDate = new Date(tooltipData.net);
+const launchDate = new Date(tooltipData.net); //net = Not Earlear Than 
 formattedLaunchDate = launchDate.toLocaleString('en-US', {  //Hier zou ook makkelijk nl-NL kunnen om de datum en tijd in het Nederlands te weergeven
 weekday: 'long',
 year: 'numeric',
@@ -155,6 +154,7 @@ timeZoneName: 'short',
 });}
 
 </script>
+
 
 
 <style>
@@ -237,6 +237,7 @@ li {
 }
 </style>
 
+<!-- De tilel van de pagina, een legenda voor de kleuren van stippen en de informatie die in de tooltip wordt getoond wordt hier gemaakt -->
 
 <main>
   <div class="title-container">
