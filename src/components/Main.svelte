@@ -47,7 +47,7 @@ onMount(async () => {
   const width = window.innerWidth;
   const height = window.innerHeight;
 
-  const projectionMap = d3.geoEquirectangular()
+  const projection1 = d3.geoEquirectangular()
       .center([0, 0])
       .translate([width / 2, height / 2])
       .scale(512 / (2 * Math.PI) * (width / 512));
@@ -65,7 +65,7 @@ onMount(async () => {
     .enter()
     .append("path")
     .attr("fill", "grey")
-    .attr("d", d3.geoPath().projection(projectionMap))
+    .attr("d", d3.geoPath().projection(projection1))
     .style("stroke", "#ffff");
 
 svg
@@ -73,8 +73,8 @@ svg
   .data(launchData)
   .enter()
   .append('circle')
-  .attr('x', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
-  .attr('y', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
+  .attr('x', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
+  .attr('y', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
   .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
