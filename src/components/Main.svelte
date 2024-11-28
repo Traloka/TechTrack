@@ -9,14 +9,10 @@
   let adjustedTooltipPosition = { x: 0, y: 0 };
   let formattedLaunchDate = '';
 
+  
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
 // Waarom dit nodig is omdat er veel data van de API wordt opgehaalt dit kost tijd. Je zegt letterlijk wacht met het bouwen.
 
-  // const statusColors = {
-  // "tbc": 'orange', // To Be Confirmed
-  // "go": 'green',   // Go for launch
-  // "tbd": 'turquoise',    // To Be Determined
-  // };
 
   async function fetchLaunchData() {
     const response = await fetch('https://ll.thespacedevs.com/2.3.0/launches/?ordering=-last_updated');
@@ -84,13 +80,17 @@ svg
   .data(launchData)
   .enter()
   .append('circle')
-  .attr('cx', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
-  .attr('cy', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
+  .attr('x', (d) => projection1([d.pad.longitude, d.pad.latitude])[0])
+  .attr('y', (d) => projection1([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
   .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
+
+
+//Hier wordt de tooltip gemaakt, aangegeven wanneer wel wanneer niet te tonnen en welke informetie er getoond moet worden
+
 
 function showTooltip(event, d) {
   tooltipData = d;
@@ -153,7 +153,8 @@ minute: '2-digit',
 hourCycle: 'h24', //geeft anders tijd in AM/PM aan
 timeZoneName: 'short',
 });}
-  </script>
+
+</script>
 
 
 <style>
