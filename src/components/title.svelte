@@ -1,5 +1,3 @@
-<script></script>
-
 <div class="title-container">
   <h1 id="title">Rocket Launch Map</h1>
 </div>
