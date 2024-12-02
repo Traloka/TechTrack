@@ -17,9 +17,10 @@
   "tbc": 'orange', // To Be Confirmed
   "go": 'green',   // Go for launch
   "tbd": 'red',    // To Be Determined
+  "hold": 'black', // On hold 
   };
 
-  
+
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
 // Waarom dit nodig is omdat er veel data van de API wordt opgehaalt dit kost tijd. Je zegt letterlijk wacht met het bouwen.
 
@@ -50,6 +51,7 @@
   
 // Hier wordt de lanceer data, defineren van geografische projectie, een SVG gemaakt voor de kaart en 
 // stippen voor lanceer locaties gemaakt.
+
 
 onMount(async () => {
   await fetchLaunchData();
@@ -134,8 +136,6 @@ if (tooltipElement) {
 } else {
   tooltipRect = { width: 300, height: 100 };     
 }
-
-
 
 const tooltipWidth = tooltipRect.width;
 const tooltipHeight = tooltipRect.height;
@@ -268,6 +268,11 @@ li {
       <li>
           <div class="legend-color" style="background-color: red;"></div>
           Determined
+      </li>
+
+      <li>
+        <div class="legend-color" style="background-color: black"></div>
+        On hold 
       </li>
   </ul>
   

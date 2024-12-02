@@ -30,10 +30,13 @@
     }
   
     $: if (showTooltipFlag && tooltipData) {
-      const tooltipElement = document.querySelector('.tooltip');
-      const tooltipRect = tooltipElement
-        ? tooltipElement.getBoundingClientRect()
-        : { width: 300, height: 100 };
+    const tooltipElement = document.querySelector(".tooltip"); 
+    let tooltipRect;
+    if (tooltipElement) {
+    tooltipRect = tooltipElement.getBoundingClientRect();
+    } else {
+    tooltipRect = { width: 300, height: 100 };     
+    }
   
       adjustedTooltipPosition = adjustTooltipPosition(
         tooltipPosition.x,
