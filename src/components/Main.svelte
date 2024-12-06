@@ -18,7 +18,7 @@
   "go": 'green',   // Go for launch
   "tbd": 'red',    // To Be Determined
   "hold": 'black', // On hold
-  "succes": 'turquoise' // Launch succesfull
+  "succes": 'turquoise', // Launch succesfull
   };
 
 
@@ -278,7 +278,7 @@ li {
       </li>
 
       <li>
-          <div class="legend-color" style="background-color: black"></div>
+          <div class="legend-color" style="background-color: black;"></div>
           On hold 
       </li>
   </ul>
