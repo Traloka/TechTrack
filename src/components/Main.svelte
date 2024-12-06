@@ -89,7 +89,7 @@ svg
   .attr('cx', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
   .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
-  .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
+  .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase(),d.status.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
@@ -260,7 +260,6 @@ li {
           <div class="legend-color" style="background-color: turquoise;"></div>
           Launch Successful
       </li>
-
 
       <li>
           <div class="legend-color" style="background-color: green;"></div>
