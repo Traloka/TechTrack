@@ -89,7 +89,9 @@ svg
   .attr('cx', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
   .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
-  .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') //hier word bepaald welke kleur de stip heeft afhankelijk van de status
+  .attr('fill', (d) => {
+  const abbrev = d.status?.abbrev?.toLowerCase();
+  return statusColors[abbrev] || 'white';})//hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
