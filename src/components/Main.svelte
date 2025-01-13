@@ -18,7 +18,7 @@
   "go": 'green',   // Go for launch
   "tbd": 'red',    // To Be Determined
   "hold": 'brown', // On hold
-  "succes": 'turquoise', // Launch succesfull
+  "succes": 'turquoise', // Launch succesfullC
   };
 
 
@@ -89,12 +89,12 @@ svg
   .attr('cx', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
   .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
-  .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
-  .attr('fill', (d) => statusColors[d.status.toLowerCase()])
+  .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
 
+console.log(launchData.map((d) => d.status.abbrev));
 
 //Hier wordt de tooltip gemaakt, aangegeven wanneer wel wanneer niet te tonnen en welke informetie er getoond moet worden
 
