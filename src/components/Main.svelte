@@ -13,15 +13,13 @@
 // Hier worden de kleuren aan de stippen gegeven afhankelijk van de status
   
   
-const statusColors = {
-  "tbc": 'orange',    // To Be Confirmed
-  "go": 'green',      // Go for launch
-  "tbd": 'red',       // To Be Determined
-  "hold": 'brown',    // On hold
-  "success": 'turquoise', // Launch successful
-};
+  const statusColors = {
+  "tbc": 'orange', // To Be Confirmed
+  "go": 'green',   // Go for launch
+  "tbd": 'red',    // To Be Determined
+  };
 
-
+  
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
 // Waarom dit nodig is omdat er veel data van de API wordt opgehaalt dit kost tijd. Je zegt letterlijk wacht met het bouwen.
 
@@ -52,7 +50,6 @@ const statusColors = {
   
 // Hier wordt de lanceer data, defineren van geografische projectie, een SVG gemaakt voor de kaart en 
 // stippen voor lanceer locaties gemaakt.
-
 
 onMount(async () => {
   await fetchLaunchData();
@@ -89,15 +86,11 @@ svg
   .attr('cx', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
   .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
-  // .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') //hier word bepaald welke kleur de stip heeft afhankelijk van de status
-  .attr('fill', (d) => {
-  const abbrev = d.status?.abbrev?.toLowerCase() || 'unknown'; // Default to 'unknown' if missing
-  return statusColors[abbrev] || 'white' // Use 'white' for unmatched statuses
+  .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()]) //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
 
-console.log(launchData.map((d) => d.status.abbrev));
 
 //Hier wordt de tooltip gemaakt, aangegeven wanneer wel wanneer niet te tonnen en welke informetie er getoond moet worden
 
@@ -141,6 +134,8 @@ if (tooltipElement) {
 } else {
   tooltipRect = { width: 300, height: 100 };     
 }
+
+
 
 const tooltipWidth = tooltipRect.width;
 const tooltipHeight = tooltipRect.height;
@@ -261,11 +256,6 @@ li {
 
   <ul>
       <li>
-          <div class="legend-color" style="background-color: turquoise;"></div>
-          Launch Successful
-      </li>
-
-      <li>
           <div class="legend-color" style="background-color: green;"></div>
           Ready for launch
       </li>
@@ -278,11 +268,6 @@ li {
       <li>
           <div class="legend-color" style="background-color: red;"></div>
           Determined
-      </li>
-
-      <li>
-          <div class="legend-color" style="background-color: brown;"></div>
-          On hold 
       </li>
   </ul>
   
