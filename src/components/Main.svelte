@@ -13,13 +13,13 @@
 // Hier worden de kleuren aan de stippen gegeven afhankelijk van de status
   
   
-  const statusColors = {
-  "tbc": 'orange', // To Be Confirmed
-  "go": 'green',   // Go for launch
-  "tbd": 'red',    // To Be Determined
-  "hold": 'brown', // On hold
-  "succes": 'turquoise', // Launch succesfullC
-  };
+const statusColors = {
+  "tbc": 'orange',    // To Be Confirmed
+  "go": 'green',      // Go for launch
+  "tbd": 'red',       // To Be Determined
+  "hold": 'brown',    // On hold
+  "success": 'turquoise', // Launch successful
+};
 
 
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
@@ -89,9 +89,10 @@ svg
   .attr('cx', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[0])
   .attr('cy', (d) => projectionMap([d.pad.longitude, d.pad.latitude])[1])
   .attr('r', 8)
+  // .attr('fill', (d) => statusColors[d.status.abbrev.toLowerCase()] || 'white') //hier word bepaald welke kleur de stip heeft afhankelijk van de status
   .attr('fill', (d) => {
-  const abbrev = d.status?.abbrev?.toLowerCase();
-  return statusColors[abbrev] || 'white';})//hier word bepaald welke kleur de stip heeft afhankelijk van de status
+  const abbrev = d.status?.abbrev?.toLowerCase() || 'unknown'; // Default to 'unknown' if missing
+  return statusColors[abbrev] || 'white' // Use 'white' for unmatched statuses
   .on('mousemove', (event, d) => showTooltip(event, d))
   .on('mouseout', hideTooltip);
 });
