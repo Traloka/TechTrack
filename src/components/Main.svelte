@@ -19,6 +19,7 @@ const statusColors = {
   "tbd": 'red',       // To Be Determined
   "hold": 'brown',    // On hold
   "success": 'turquoise', // Launch successful
+  "failed": 'yellow', // Launch failed
 };
 
 
