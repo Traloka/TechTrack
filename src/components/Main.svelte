@@ -222,7 +222,7 @@ overflow: hidden;
 background-color: #1a1a2e;
 }
 
-ul {
+/* ul {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -245,7 +245,36 @@ li {
   height: 15px;
   margin-right: 10px;
   border-radius: 50%;
+} */
+
+ul {
+  position: absolute;
+  bottom: 10px; /* Position the legend at the bottom of the screen */
+  left: 50%;
+  transform: translateX(-50%); /* Center the legend horizontally */
+  display: flex; /* Arrange items in a row */
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  gap: 15px; /* Add spacing between items */
 }
+
+li {
+  display: flex;
+  align-items: center;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
 </style>
 
 <!-- De tilel van de pagina, een legenda voor de kleuren van stippen en de informatie die in de tooltip wordt getoond wordt hier gemaakt -->
