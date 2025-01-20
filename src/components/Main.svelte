@@ -16,10 +16,10 @@
 const statusColors = {
   "tbc": 'orange',    // To Be Confirmed
   "go": 'green',      // Go for launch
-  "tbd": 'red',       // To Be Determined
+  "tbd": 'yellow',       // To Be Determined
   "hold": 'brown',    // On hold
   "success": 'turquoise', // Launch successful
-  "failed": 'yellow', // Launch failed
+  "failure": 'red', // Launch failed
 };
 
 
@@ -274,7 +274,7 @@ li {
       </li>
 
       <li>
-          <div class="legend-color" style="background-color: red;"></div>
+          <div class="legend-color" style="background-color: yellow;"></div>
           Determined
       </li>
 
@@ -282,6 +282,11 @@ li {
           <div class="legend-color" style="background-color: brown;"></div>
           On hold 
       </li>
+
+      <li>
+          <div class="legend-color" style="background-color: red;"></div>
+          Launch failed
+       </li>
   </ul>
   
                           
