@@ -249,15 +249,15 @@ li {
 
 ul {
   position: absolute;
-  bottom: 10px; /* Position the legend at the bottom of the screen */
+  bottom: 10em; /* Position the legend at the bottom of the screen */
   left: 50%;
   transform: translateX(-50%); /* Center the legend horizontally */
   display: flex; /* Arrange items in a row */
   justify-content: center;
   background-color: white;
   border: 1px solid #ddd;
-  padding: 5px 10px;
-  border-radius: 8px;
+  padding: 5em 10em;
+  border-radius: 8em;
   font-family: 'Orbitron', sans-serif;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   gap: 15px; /* Add spacing between items */
@@ -265,7 +265,7 @@ ul {
 
 li {
   display: flex;
-  align-items: stretch;
+  align-items: center;
 }
 
 .legend-color {
