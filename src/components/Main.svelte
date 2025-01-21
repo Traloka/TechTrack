@@ -1,21 +1,12 @@
 <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
-
   import WelcomePopup from './WelcomePopup.svelte';
 
-  let showWelcomePopup = false;
-
-  onMount(() => {
-    const hasVisited = localStorage.getItem('hasVisited');
-    if (!hasVisited) {
-      showWelcomePopup = true;
-      localStorage.setItem('hasVisited', 'true');
-    }
-  });
-
+  let showWelcomePopup = true; 
+  
   function closePopup() {
-    showWelcomePopup = false;
+    showWelcomePopup = false; 
   }
 
   let launchData = []; 

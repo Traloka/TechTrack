@@ -1,6 +1,6 @@
 <script>
-    export let onClose; // Accept a function as a prop to handle close behavior
-  </script>
+    export let onClose; 
+</script>
   
   <div class="popup-overlay">
     <div class="popup-content">
