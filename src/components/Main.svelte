@@ -4,7 +4,7 @@
   import WelcomePopup from './WelcomePopup.svelte';
 
   let showWelcomePopup = true; 
-  
+
   function closePopup() {
     showWelcomePopup = false; 
   }
@@ -288,13 +288,14 @@ li {
 <!-- De tilel van de pagina, een legenda voor de kleuren van stippen en de informatie die in de tooltip wordt getoond wordt hier gemaakt -->
 
 <main>
-  <div class="title-container">
-    <h1 id="title">Rocket Launch Map</h1>
-  </div>
-
+  
   {#if showWelcomePopup}
     <WelcomePopup onClose={closePopup} />
   {/if}
+
+  <div class="title-container">
+    <h1 id="title">Rocket Launch Map</h1>
+  </div>
 
   <div id="map"></div>
 
