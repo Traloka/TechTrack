@@ -249,18 +249,18 @@ li {
 
 ul {
   position: absolute;
-  bottom: 10px; /* Position the legend at the bottom of the screen */
+  bottom: 10px; 
   left: 50%;
-  transform: translateX(-50%); /* Center the legend horizontally */
-  display: flex; /* Arrange items in a row */
+  transform: translateX(-50%); 
+  display: flex; 
   justify-content: center;
   background-color: white;
-  border: 1px solid #ddd;
+  border: 8px solid white;
   padding: 5px 10px;
   border-radius: 8px;
   font-family: 'Orbitron', sans-serif;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  gap: 15px; /* Add spacing between items */
+  gap: 15px; 
 }
 
 li {
