@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
-  import WelcomePopup from 'WelcomePopup.svelte';
+  import WelcomePopup from './WelcomePopup.svelte';
 
   let showWelcomePopup = true; 
 
