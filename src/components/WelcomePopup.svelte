@@ -27,7 +27,7 @@
       z-index: 9999;
     }
     .popup-content {
-      background: white;
+      background: white);
       padding: 20px;
       border-radius: 8px;
       max-width: 500px;
@@ -37,7 +37,7 @@
     button {
       margin-top: 15px;
       padding: 10px 20px;
-      background: #007bff;
+      background: #1a1a2e;
       color: white;
       border: none;
       border-radius: 4px;
