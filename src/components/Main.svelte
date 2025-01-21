@@ -357,5 +357,3 @@ li {
 </main> 
 
 <!-- De inline-stijl stelt de positie van de tooltip dynamisch in op basis van de berekende adjustedTooltipPosition -->
-
-
