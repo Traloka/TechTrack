@@ -249,23 +249,24 @@ li {
 
 ul {
   position: absolute;
-  bottom: 10em; /* Position the legend at the bottom of the screen */
+  bottom: 10px; /* Position the legend at the bottom of the screen */
   left: 50%;
   transform: translateX(-50%); /* Center the legend horizontally */
   display: flex; /* Arrange items in a row */
   justify-content: center;
   background-color: white;
   border: 1px solid #ddd;
-  padding: 5em 10em;
-  border-radius: 8em;
+  padding: 5px 10px;
+  border-radius: 8px;
   font-family: 'Orbitron', sans-serif;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   gap: 15px; /* Add spacing between items */
 }
 
 li {
-  display: flex;
+  display: flex; /* Inline legend color and text */
   align-items: center;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .legend-color {
