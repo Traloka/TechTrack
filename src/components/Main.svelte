@@ -2,6 +2,22 @@
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
 
+  import WelcomePopup from './WelcomePopup.svelte';
+
+  let showWelcomePopup = false;
+
+  onMount(() => {
+    const hasVisited = localStorage.getItem('hasVisited');
+    if (!hasVisited) {
+      showWelcomePopup = true;
+      localStorage.setItem('hasVisited', 'true');
+    }
+  });
+
+  function closePopup() {
+    showWelcomePopup = false;
+  }
+
   let launchData = []; 
   let tooltipData = null; 
   let showTooltipFlag = false; 
@@ -15,10 +31,10 @@
   
 const statusColors = {
   "tbc": 'orange',    // To Be Confirmed
-  "go": 'green',      // Go for launch
+  "go": 'turquoise',      // Go for launch
   "tbd": 'yellow',       // To Be Determined
   "hold": 'brown',    // On hold
-  "success": 'turquoise', // Launch successful
+  "success": 'green', // Launch successful
   "failure": 'red', // Launch failed
 };
 
@@ -264,9 +280,9 @@ ul {
 }
 
 li {
-  display: flex; /* Inline legend color and text */
+  display: flex; 
   align-items: center;
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap;
 }
 
 .legend-color {
@@ -285,16 +301,20 @@ li {
     <h1 id="title">Rocket Launch Map</h1>
   </div>
 
+  {#if showWelcomePopup}
+    <WelcomePopup onClose={closePopup} />
+  {/if}
+
   <div id="map"></div>
 
   <ul>
       <li>
-          <div class="legend-color" style="background-color: turquoise;"></div>
+          <div class="legend-color" style="background-color: green;"></div>
           Launch Successful
       </li>
 
       <li>
-          <div class="legend-color" style="background-color: green;"></div>
+          <div class="legend-color" style="background-color: turquoise;"></div>
           Ready for launch
       </li>
 
