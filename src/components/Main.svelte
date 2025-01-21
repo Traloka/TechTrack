@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
-  import WelcomePopup from './WelcomePopup.svelte';
+  import WelcomePopup from 'WelcomePopup.svelte';
 
   let showWelcomePopup = true; 
 
@@ -288,7 +288,7 @@ li {
 <!-- De tilel van de pagina, een legenda voor de kleuren van stippen en de informatie die in de tooltip wordt getoond wordt hier gemaakt -->
 
 <main>
-  
+
   {#if showWelcomePopup}
     <WelcomePopup onClose={closePopup} />
   {/if}
