@@ -26,14 +26,17 @@
       align-items: center;
       z-index: 9999;
     }
+
     .popup-content {
-      background: white);
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    line-height: .5em;
     }
+
     button {
       margin-top: 15px;
       padding: 10px 20px;
@@ -43,6 +46,7 @@
       border-radius: 4px;
       cursor: pointer;
     }
+    
     button:hover {
       background: #0056b3;
     }
