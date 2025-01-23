@@ -20,14 +20,14 @@
 // Hier worden de kleuren aan de stippen gegeven afhankelijk van de status
   
   
-const statusColors = {
-  "tbc": 'orange',    // To Be Confirmed
-  "go": 'turquoise',      // Go for launch
-  "tbd": 'yellow',       // To Be Determined
-  "hold": 'brown',    // On hold
-  "success": 'green', // Launch successful
-  "failure": 'red', // Launch failed
-};
+  const statusColors = {
+    "tbc": 'orange',    // To Be Confirmed
+    "go": 'turquoise',      // Go for launch
+    "tbd": 'yellow',       // To Be Determined
+    "hold": 'brown',    // On hold
+    "success": 'green', // Launch successful
+    "failure": 'red', // Launch failed
+  };
 
 
 //Hier wordt de lanceer data opgehaalt van de API maakt de functie asynchroon, waarbij je 'await' gebruikt.
@@ -229,31 +229,6 @@ overflow: hidden;
 background-color: #1a1a2e;
 }
 
-/* ul {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 1px;
-  border-radius: 4px;
-  font-family: 'Orbitron', sans-serif;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-li {
-  display: flex;
-  align-items: center;
-  margin: 0.8em;
-}
-
-.legend-color {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  border-radius: 50%;
-} */
-
 ul {
   position: absolute;
   bottom: 10px; 
@@ -282,14 +257,13 @@ li {
   margin-right: 5px;
   border-radius: 50%;
 }
-
 </style>
 
-<!-- De tilel van de pagina, een legenda voor de kleuren van stippen en de informatie die in de tooltip wordt getoond wordt hier gemaakt -->
+<!-- De popup, tilel van de pagina, een legenda voor de kleuren van stippen en de informatie die in de tooltip wordt getoond wordt hier gemaakt -->
 
 <main>
 
-  {#if showWelcomePopup}
+  {#if showWelcomePopup}  
     <WelcomePopup onClose={closePopup} />
   {/if}
 

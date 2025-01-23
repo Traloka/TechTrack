@@ -6,10 +6,10 @@
     <div class="popup-content">
       <h2>Welcome to the Rocket Launch Map</h2>
       <p>
-        This website provides real-time updates on rocket launches worldwide of this month. 
+        This website provides real-time updates on rocket launches worldwide this and upcoming months.
         Explore the map, view rocket details, and stay informed about the latest launches.
       </p>
-      <button on:click={onClose}>Got it!</button>
+      <button on:click={onClose}>Let's go!</button>
     </div>
   </div>
   
